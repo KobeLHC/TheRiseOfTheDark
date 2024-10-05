@@ -26,7 +26,7 @@ public class UIFIll : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            deduct(3);
+            deduct(1);
         }
     }
 
