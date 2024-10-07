@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public float movevSpeed;
     Vector3 directionToTarget;
 
+    public int enemyHealth = 5;
+
     void Start()
     {
         target = GameObject.Find("Player");
@@ -32,6 +34,23 @@ public class EnemyController : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
+        }
+    }
+
+    public void takePlayerDamage(int dmg)
+    {
+        enemyHealth -= dmg;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Fire")
+        {
+            takePlayerDamage(1);
+            if (enemyHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

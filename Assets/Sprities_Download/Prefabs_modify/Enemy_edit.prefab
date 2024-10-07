@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_edit
       objectReference: {fileID: 0}
+    - target: {fileID: 1688452843344484, guid: 7cdb699f28c96ee4b9e64c83a9a02b2b, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4966856857106734, guid: 7cdb699f28c96ee4b9e64c83a9a02b2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.68
@@ -156,3 +160,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movevSpeed: 2
+  enemyHealth: 5
