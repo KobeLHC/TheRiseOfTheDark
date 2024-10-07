@@ -8,8 +8,10 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public Vector2 movement;
-    Vector2 moveAmount;
-    public Transform player;
+    //Vector2 moveAmount;
+    //public Transform player;
+    private Vector2 lastMovementDirection;
+
 
     void Start()
     {
@@ -42,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
         */
+        if (movement != Vector2.zero)
+        {
+            lastMovementDirection = movement.normalized;
+        }
 
     }
 
@@ -52,4 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-   }
+    public Vector2 GetFacingDirection()
+    {
+        // Return the last movement direction
+        return lastMovementDirection;
+    }
+}

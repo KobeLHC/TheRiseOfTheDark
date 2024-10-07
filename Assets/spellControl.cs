@@ -40,6 +40,6 @@ public class spellControl : MonoBehaviour
 
     private void Destroy()
     {
-        gameObject.SetActive (false);
+        gameObject.SetActive(false);  
     }
 }

@@ -22945,7 +22945,6 @@ MonoBehaviour:
   moveSpeed: 7
   rb: {fileID: 2011943673}
   movement: {x: 0, y: 0}
-  player: {fileID: 2011943675}
 --- !u!4 &2011943675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4567295203670988, guid: d102c483fad5a1f48b9b947b6be387ea, type: 3}
@@ -23008,13 +23007,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb73a314b22e52468d52e4e9e241e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetDistance: 1
   prefab: {fileID: 8164083875279527907, guid: a2eb422b82c5d0a48947a522814a16fd, type: 3}
   pooledObject: []
-  countToPool: 50
+  countToPool: 100
   canExpand: 1
-  spellAmount: 50
-  startAngle: 45
-  endAngle: 90
+  spellAmount: 100
 --- !u!1 &2013383785
 GameObject:
   m_ObjectHideFlags: 0
