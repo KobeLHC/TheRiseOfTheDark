@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   baseOffset: 0
-  damage: 2
+  damage: 1
 --- !u!70 &-7473940090076299257
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

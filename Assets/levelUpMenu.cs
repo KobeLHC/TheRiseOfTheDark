@@ -7,16 +7,19 @@ public class levelUpMenu : MonoBehaviour
 {
     public GameObject levelupMenu;
     public static bool pause;
-    private spellControl fire;
+    [SerializeField] private spellControl fire;
 
     void Start()
     {
         levelupMenu.SetActive(false);
 
-        GameObject fireObject = GameObject.Find("Fire Spell LV1");
-        if (fireObject != null)
+        if (fire == null)
         {
-            fire = fireObject.GetComponent<spellControl>();
+            GameObject fireObject = GameObject.Find("Fire Spell LV1");
+            if (fireObject != null)
+            {
+                fire = fireObject.GetComponent<spellControl>();
+            }
         }
     }
 
@@ -41,6 +44,10 @@ public class levelUpMenu : MonoBehaviour
 
     public void levelUp()
     {
-        fire.damage += 5;
+        fire.damageAdd(5);
+        levelupMenu.SetActive(false);
+        Time.timeScale = 1f;
+        pause = false;
+
     }
 }

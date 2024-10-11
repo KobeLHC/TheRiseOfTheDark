@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public float movevSpeed;
     Vector3 directionToTarget;
     public int enemyHealth = 5;
+    [SerializeField] private spellControl fire;
 
     //Control Soul Bar
     private UIFill soulAdd;
@@ -33,6 +34,15 @@ public class EnemyController : MonoBehaviour
         if (playerXPObject != null)
         {
             playerXP = playerXPObject.GetComponent<playerXP>();
+        }
+
+        if (fire == null)
+        {
+            GameObject fireObject = GameObject.Find("Fire Spell LV1");
+            if (fireObject != null)
+            {
+                fire = fireObject.GetComponent<spellControl>();
+            }
         }
 
     }
@@ -64,7 +74,7 @@ public class EnemyController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Fire")
         {
-            takePlayerDamage(1);
+            takePlayerDamage(fire.damage);
             if (enemyHealth <= 0)
             {
                 soulAdd.add(10);

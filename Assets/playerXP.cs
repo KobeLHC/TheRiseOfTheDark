@@ -6,14 +6,19 @@ using UnityEngine.UI;
 public class playerXP : MonoBehaviour
 {
     public Slider XPBar;
-    private levelUpMenu menuUp;
+    [SerializeField] private levelUpMenu menuUp;
 
     void Start()
     {
-        GameObject menuUpObject = GameObject.Find("Level Up Menu");
-        if (menuUpObject != null)
+
+        GameObject menuObject = GameObject.Find("Level Up Menu");
+        if (menuObject != null)
         {
-            menuUp = menuUpObject.GetComponent<levelUpMenu>();
+            menuUp = menuObject.GetComponent<levelUpMenu>();
+        }
+        else
+        {
+            Debug.LogWarning("Level Up Menu not found!");
         }
     }
 
@@ -29,7 +34,11 @@ public class playerXP : MonoBehaviour
         if(XPBar.value >= XPBar.maxValue)
         {
             XPBar.value = 0;
-            menuUp.pauseGame();
+            //menuUp.pauseGame();
+            if(menuUp != null)
+        {
+                menuUp.pauseGame();
+            }
         }
     }
 }

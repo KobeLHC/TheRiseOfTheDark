@@ -11,14 +11,13 @@ public class spellControl : MonoBehaviour
     private Vector3 mousePos;
     private Camera mainCam;
     private Rigidbody2D rb;
- 
-
 
     public int damage;
 
 
     void Start()
     {
+        damage = 1;
         transform.Translate(Vector3.right * baseOffset);
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
@@ -30,7 +29,15 @@ public class spellControl : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rot);
         InvokeRepeating("destroy", 5f, 4f);
     }
+    private void Update()
+    {
+       
+    }
 
+    public void damageAdd(int dmg)
+    {
+        damage += dmg;
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
