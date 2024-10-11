@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -8,14 +9,31 @@ public class EnemyController : MonoBehaviour
     GameObject target;
     public float movevSpeed;
     Vector3 directionToTarget;
-
     public int enemyHealth = 5;
+
+    //Control Soul Bar
+    private UIFill soulAdd;
+
+    //XP Bar control
+    private playerXP playerXP;
 
     void Start()
     {
         target = GameObject.Find("Player");
         rb = GetComponent<Rigidbody2D>();
 
+        GameObject soulBarObject = GameObject.Find("Soul Bar");
+        if (soulBarObject != null)
+        {
+            soulAdd = soulBarObject.GetComponent<UIFill>();
+        }
+
+
+        GameObject playerXPObject = GameObject.Find("XPBar");
+        if (playerXPObject != null)
+        {
+            playerXP = playerXPObject.GetComponent<playerXP>();
+        }
 
     }
 
@@ -49,6 +67,8 @@ public class EnemyController : MonoBehaviour
             takePlayerDamage(1);
             if (enemyHealth <= 0)
             {
+                soulAdd.add(10);
+                playerXP.addXP(1);
                 Destroy(gameObject);
             }
         }

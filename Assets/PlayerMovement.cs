@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     public Vector2 movement;
-    //Vector2 moveAmount;
-    //public Transform player;
     private Vector2 lastMovementDirection;
 
 
@@ -20,47 +18,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Get directions
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-        /*movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveAmount = movement.normalized * moveSpeed;
-
-        switch(movement)
-        {
-            case Vector2 vector when vector.Equals(Vector2.right) :
-                player.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
-                break;
-            case Vector2 vector when vector.Equals(Vector2.left):
-                player.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-                break;
-            case Vector2 vector when vector.Equals(Vector2.up):
-                player.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                break;
-            case Vector2 vector when vector.Equals(Vector2.down):
-                player.rotation = Quaternion.Euler(new Vector3(0, 0, -180));
-                break;
-            default:
-                break;
-        }
-        */
-        if (movement != Vector2.zero)
-        {
-            lastMovementDirection = movement.normalized;
-        }
 
     }
 
     void FixedUpdate()
     {
         //Update Movement
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
     }
 
-    public Vector2 GetFacingDirection()
-    {
-        // Return the last movement direction
-        return lastMovementDirection;
-    }
 }

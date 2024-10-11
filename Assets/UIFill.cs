@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class UIFIll : MonoBehaviour
+public class UIFill : MonoBehaviour
 {
     public int maxValue;
     public Image fill;
@@ -19,15 +19,7 @@ public class UIFIll : MonoBehaviour
   
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            add(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            deduct(1);
-        }
+       
     }
 
     public void add(int i)

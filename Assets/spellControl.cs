@@ -1,26 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class spellControl : MonoBehaviour
 {
     private Vector2 moveDirection;
-    [SerializeField] private float moveSpeed;
-     
+    [SerializeField] private float moveSpeed, baseOffset;
+
+    private Vector3 mousePos;
+    private Camera mainCam;
+    private Rigidbody2D rb;
+ 
+
+
+    public int damage;
+
 
     void Start()
     {
-        Invoke("Destroy", 2f);
-    }
-    void Update()
-    {
-     transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        transform.Translate(Vector3.right * baseOffset);
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        rb = GetComponent<Rigidbody2D>();
+         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePos - transform.position;
+        Vector3 rotation = transform.position - mousePos;
+        rb.velocity = new Vector2(direction.x, direction.y).normalized * moveSpeed;
+        float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, rot);
+        InvokeRepeating("destroy", 5f, 4f);
     }
 
-    public void SetMoveDirection(Vector2 dir)
-    {
-        moveDirection = dir;
-    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -28,17 +38,15 @@ public class spellControl : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Wall")
+        else if (collision.gameObject.CompareTag("Wall") )
         {
-            other.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
-    private void Destroy()
+
+    private void destroy()
     {
         gameObject.SetActive(false);  
     }
