@@ -161,4 +161,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movevSpeed: 2
   enemyHealth: 5
-  soulAdd: {fileID: 0}
+  fire: {fileID: 3368770725205218519, guid: a2eb422b82c5d0a48947a522814a16fd, type: 3}

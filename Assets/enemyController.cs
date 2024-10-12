@@ -68,13 +68,15 @@ public class EnemyController : MonoBehaviour
     public void takePlayerDamage(int dmg)
     {
         enemyHealth -= dmg;
+        Debug.Log("Enemy taking " + dmg);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Fire")
         {
-            takePlayerDamage(fire.damage);
+            takePlayerDamage((fire.damage + spellControl.getUp()));
+
             if (enemyHealth <= 0)
             {
                 soulAdd.add(10);

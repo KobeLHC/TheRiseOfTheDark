@@ -11,15 +11,21 @@ public class playerXP : MonoBehaviour
     void Start()
     {
 
-        GameObject menuObject = GameObject.Find("Level Up Menu");
-        if (menuObject != null)
+        if (menuUp == null)
         {
-            menuUp = menuObject.GetComponent<levelUpMenu>();
+            GameObject menuObject = GameObject.Find("Level Up Menu");
+            if (menuObject != null)
+            {
+                menuUp = menuObject.GetComponent<levelUpMenu>();
+            }
+
+            if (menuUp == null)
+            {
+                Debug.LogWarning("Level Up Menu not found!");
+            }
+            
         }
-        else
-        {
-            Debug.LogWarning("Level Up Menu not found!");
-        }
+        
     }
 
     void Update()
@@ -34,7 +40,7 @@ public class playerXP : MonoBehaviour
         if(XPBar.value >= XPBar.maxValue)
         {
             XPBar.value = 0;
-            //menuUp.pauseGame();
+            
             if(menuUp != null)
         {
                 menuUp.pauseGame();

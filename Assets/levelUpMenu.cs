@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class levelUpMenu : MonoBehaviour
 {
     public GameObject levelupMenu;
     public static bool pause;
-    [SerializeField] private spellControl fire;
+    public spellControl fire;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class levelUpMenu : MonoBehaviour
         
     }
 
+
     public void pauseGame()
     {
         levelupMenu.SetActive(true);
@@ -44,7 +46,7 @@ public class levelUpMenu : MonoBehaviour
 
     public void levelUp()
     {
-        fire.damageAdd(5);
+        spellControl.damageAdd(5);
         levelupMenu.SetActive(false);
         Time.timeScale = 1f;
         pause = false;
