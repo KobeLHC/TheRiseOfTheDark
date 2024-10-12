@@ -162,3 +162,4 @@ MonoBehaviour:
   movevSpeed: 2
   enemyHealth: 5
   fire: {fileID: 3368770725205218519, guid: a2eb422b82c5d0a48947a522814a16fd, type: 3}
+  enPrefab: {fileID: 1683322886944686, guid: 43968f6f375db784a95f3e590b3015cf, type: 3}

@@ -5,15 +5,34 @@ using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
+    //Follow Player
     Rigidbody2D rb;
     GameObject target;
     public float movevSpeed;
     Vector3 directionToTarget;
+
+    //Taking Fire Damage
     public int enemyHealth = 5;
     [SerializeField] private spellControl fire;
 
+    //Attack player
+    /*private float coolDownTimer = Mathf.Infinity;
+    [SerializeField] private float attackCoolDown;
+    [SerializeField] private float range;
+    [SerializeField] private float colliderDistance;
+    static int enemyDamage = 1;
+    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private LayerMask playerLayer;
+
+    //test*/
+    public GameObject enPrefab;
+
+
+
+
+
     //Control Soul Bar
-    private UIFill soulAdd;
+    private UIFill soulControl;
 
     //XP Bar control
     private playerXP playerXP;
@@ -26,7 +45,7 @@ public class EnemyController : MonoBehaviour
         GameObject soulBarObject = GameObject.Find("Soul Bar");
         if (soulBarObject != null)
         {
-            soulAdd = soulBarObject.GetComponent<UIFill>();
+            soulControl = soulBarObject.GetComponent<UIFill>();
         }
 
 
@@ -49,13 +68,25 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+       // coolDownTimer += Time.deltaTime;
         moveEnemy();
+
+        //Attack when player in range
+        /*if (playerInSight())
+        {
+            if (coolDownTimer >= attackCoolDown)
+            {
+                coolDownTimer = 0;
+                Instantiate(enPrefab);
+            }
+        }*/
     }
 
     void moveEnemy()
     {
         if(target != null)
         {
+            //move towards player automatically
             directionToTarget = (target.transform.position - transform.position).normalized;
             rb.velocity = new Vector2(directionToTarget.x * movevSpeed, directionToTarget.y * movevSpeed);
         }
@@ -79,10 +110,32 @@ public class EnemyController : MonoBehaviour
 
             if (enemyHealth <= 0)
             {
-                soulAdd.add(10);
+                soulControl.add(10);
                 playerXP.addXP(1);
                 Destroy(gameObject);
             }
         }
+        if (collision.gameObject.tag == "Player")
+        {
+            soulControl.deduct(5);
+            Instantiate(enPrefab);
+        }
+
     }
+
+    /*private bool playerInSight()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
+            0, Vector2.left, 0, playerLayer);
+        
+        return hit.collider != null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
+    }*/
 }
