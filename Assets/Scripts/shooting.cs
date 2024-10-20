@@ -26,19 +26,15 @@ public class shooting : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, rotz);
 
-        //new part
-        /*if(Mathf.Abs(rotz) > -30f && Mathf.Abs(rotz) < 120f)
+      
+        if(Mathf.Abs(rotz) > 0f && Mathf.Abs(rotz) < 50f)
         {
             bulletTransform.localScale = new Vector3(bulletTransform.localScale.x, Mathf.Abs(bulletTransform.localScale.y), bulletTransform.localScale.z);
         }
-        else if (Mathf.Abs(rotz) > 120f && Mathf.Abs(rotz) < 160f )
+        else if (Mathf.Abs(rotz) > 120f && Mathf.Abs(rotz) < 150f )
         {
             bulletTransform.localScale = new Vector3(-Mathf.Abs(bulletTransform.localScale.x), -Mathf.Abs(bulletTransform.localScale.y), bulletTransform.localScale.z);
         }
-        else
-        {
-            bulletTransform.localScale = new Vector3(bulletTransform.localScale.x, Mathf.Abs(bulletTransform.localScale.y), bulletTransform.localScale.z);
-        }*/
 
         timer += Time.deltaTime;
 

@@ -15,27 +15,19 @@ public class EnemyController : MonoBehaviour
     public int enemyHealth = 5;
     [SerializeField] private spellControl fire;
 
-    //Attack player
-    /*private float coolDownTimer = Mathf.Infinity;
-    [SerializeField] private float attackCoolDown;
-    [SerializeField] private float range;
-    [SerializeField] private float colliderDistance;
-    static int enemyDamage = 1;
-    [SerializeField] private BoxCollider2D boxCollider;
-    [SerializeField] private LayerMask playerLayer;
-
-    //test*/
-    public GameObject enPrefab;
-
-
-
-
+    //Enemy Animate
+    private Animator anim;
 
     //Control Soul Bar
     private UIFill soulControl;
 
     //XP Bar control
     private playerXP playerXP;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     void Start()
     {
@@ -68,18 +60,8 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-       // coolDownTimer += Time.deltaTime;
         moveEnemy();
 
-        //Attack when player in range
-        /*if (playerInSight())
-        {
-            if (coolDownTimer >= attackCoolDown)
-            {
-                coolDownTimer = 0;
-                Instantiate(enPrefab);
-            }
-        }*/
     }
 
     void moveEnemy()
@@ -117,25 +99,13 @@ public class EnemyController : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player")
         {
-            soulControl.deduct(5);
-            Instantiate(enPrefab);
+            anim.SetTrigger("attack");
         }
 
     }
 
-    /*private bool playerInSight()
+    private void animDamage()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
-            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
-            0, Vector2.left, 0, playerLayer);
-        
-        return hit.collider != null;
+        soulControl.deduct(5);
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
-            new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
-    }*/
 }
