@@ -64,7 +64,7 @@ public class levelUpMenu : MonoBehaviour
     {
         if (waitLevelUp == true)
         {
-            spellControl.damageAdd(5);
+            spellControl.damageAdd(1);
             levelupMenu.SetActive(false);
             Time.timeScale = 1f;
             waitLevelUp = false;

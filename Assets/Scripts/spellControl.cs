@@ -16,9 +16,10 @@ public class spellControl : MonoBehaviour
     public int damage = 1;
     static public int up;
 
+    public Timer soulCheck;
+
     void Start()
     {
-
         transform.Translate(Vector3.right * baseOffset);
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
@@ -36,6 +37,10 @@ public class spellControl : MonoBehaviour
     }
     private void Update()
     {
+        if(soulCheck.getFullSoul() == true)
+        {
+            up += 10;
+        }
         
     }
 

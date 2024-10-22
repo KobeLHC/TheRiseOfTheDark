@@ -45,4 +45,16 @@ public class UIFill : MonoBehaviour
 
         fill.fillAmount = (float)currentValue / maxValue;
     }
+
+    public bool isFull()
+    {
+        if(currentValue == maxValue)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime;
     private bool bossOn = false;
+
+    public UIFill checkSoul;
+    private bool fullSoul = false;
 
     public Image moon;
     public Image boss;
@@ -17,10 +21,21 @@ public class Timer : MonoBehaviour
     {
         moon.enabled = true;
         boss.enabled = false;
+        //checkSoul = GetComponent<UIFill>();
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            quitGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         if (bossOn == false)
         {
             if (remainingTime > 0)
@@ -30,6 +45,7 @@ public class Timer : MonoBehaviour
             else if(remainingTime <= 0)
             {
                 remainingTime = 0;
+                fullSoul = checkSoul.isFull();
                 StartCoroutine(bossFightOn());
             }
         }
@@ -63,6 +79,11 @@ public class Timer : MonoBehaviour
     }
     private void quitGame()
     {
-      UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
+    }
+
+    public bool getFullSoul()
+    {
+        return fullSoul;
     }
 }

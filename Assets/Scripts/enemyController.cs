@@ -92,7 +92,7 @@ public class EnemyController : MonoBehaviour
 
             if (enemyHealth <= 0)
             {
-                soulControl.add(10);
+                soulControl.add(5);
                 playerXP.addXP(1);
                 Destroy(gameObject);
             }
