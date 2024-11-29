@@ -203,8 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93071ff27d1534f13bcf0f416372fb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  enemyHealth: 10
+  moveSpeed: 3
+  enemyHealth: 8
   fire: {fileID: 3368770725205218519, guid: a2eb422b82c5d0a48947a522814a16fd, type: 3}
   water: {fileID: 4996605435215763410, guid: 65edc91cc99797c46b8d33dd0a828042, type: 3}
   grass: {fileID: 4309141071785344041, guid: e2e985c211b09cc49b08c670828c303c, type: 3}

@@ -15,7 +15,7 @@ public class enemySpawn : MonoBehaviour
     int offset;
 
     //Spawn Boss
-    private Timer soulCheck;
+    public Timer soulCheck;
     private bool bossSpawned;
     public GameObject boss;
 
@@ -23,14 +23,14 @@ public class enemySpawn : MonoBehaviour
 
     void Start()
     {
-        if (soulCheck == null)
+        /*if (soulCheck == null)
         {
             GameObject soulObject = GameObject.Find("Canvas");
             if (soulObject != null)
             {
                 soulCheck = soulObject.GetComponent<Timer>();
             }
-        }
+        }*/
 
         bossSpawned = false;
 
@@ -40,9 +40,6 @@ public class enemySpawn : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("redmoon end = " + soulCheck.getRedMoonTimerEnd());
-          Debug.Log("Boss spawned = " + bossSpawned);
-
       if (soulCheck.getRedMoonTimerEnd()  == true && bossSpawned == false)
         {
             spawn();
@@ -72,6 +69,9 @@ public class enemySpawn : MonoBehaviour
     {
         offset = Random.Range(-10, 20);
         randomSpawn = new Vector3((player.transform.position.x + offset), (player.transform.position.y + offset), 0);
-        Instantiate(boss, spawnPoints[0].position, Quaternion.identity);
+        if (spawnPoints[0].position.y <= 13 && spawnPoints[0].position.y >= -13 && spawnPoints[0].position.x >= -23 && spawnPoints[0].position.x <= 23)
+        {
+            Instantiate(boss, spawnPoints[0].position, Quaternion.identity);
+        }
     }
 }

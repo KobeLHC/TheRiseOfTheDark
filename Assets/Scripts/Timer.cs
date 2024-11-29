@@ -30,9 +30,11 @@ public class Timer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("Quit game");
             quitGame();
         }
 
+        //Reload Scene
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -59,6 +61,12 @@ public class Timer : MonoBehaviour
         {
             if (remainingTime > 0)
             {
+                if(checkSoul.fill.fillAmount == 0)
+                {
+                    //Debug.Log("Quit game");
+                    quitGame();
+                }
+
                 remainingTime -= Time.deltaTime;
             }
             else if (remainingTime < 0)

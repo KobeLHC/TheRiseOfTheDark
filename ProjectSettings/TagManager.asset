@@ -11,6 +11,7 @@ TagManager:
   - Grass
   - Enemy2
   - Arrow
+  - Boss
   layers:
   - Default
   - TransparentFX

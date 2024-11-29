@@ -17,12 +17,23 @@ public class spellControl : MonoBehaviour
     static public int up;
     static private int showDmg = 2;
 
-    private Timer soulCheck;
+    public Timer soulCheck;
 
     public float destroyTime = 1.0f;
 
     void Start()
     {
+
+        /*if (soulCheck == null)
+        {
+            GameObject soulObject = GameObject.Find("Canvas");
+            Debug.Log("Print" + soulObject);
+            if (soulObject != null)
+            {
+                soulCheck = soulObject.GetComponent<Timer>();
+            }
+        }*/
+
         transform.Translate(Vector3.right * baseOffset);
          rb = GetComponent<Rigidbody2D>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -33,7 +44,7 @@ public class spellControl : MonoBehaviour
 
         rb.velocity = new Vector2(direction.x, direction.y).normalized * moveSpeed;
 
-        //float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+       //float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
        //transform.rotation = Quaternion.Euler(0, 0, rot);
        if(direction.z > 0)
         {
@@ -46,16 +57,7 @@ public class spellControl : MonoBehaviour
 
         //Destroy bullet after 4 sec
         InvokeRepeating("destroy", destroyTime, destroyTime);
-
-
-        if (soulCheck == null)
-        {
-            GameObject soulObject = GameObject.Find("Canvas");
-            if (soulObject != null)
-            {
-                soulCheck = soulObject.GetComponent<Timer>();
-            }
-        }
+       
     }
     private void Update()
     {
@@ -66,7 +68,7 @@ public class spellControl : MonoBehaviour
         }
         else
         {
-            Debug.Log("soulCheck is false");
+            //Debug.Log("soulCheck is false");
         }
         
     }
@@ -89,13 +91,13 @@ public class spellControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Fire & Water atk
-        if (collision.gameObject.tag == "Enemy" && destroyTime == 3.0f || collision.gameObject.CompareTag("Wall") || collision.gameObject.tag == "Enemy2" && destroyTime == 3.0f)
+        //Fire & Water atk, affective to all types enemy
+        if (collision.gameObject.tag == "Enemy" && destroyTime == 3.0f || collision.gameObject.CompareTag("Wall") || collision.gameObject.tag == "Enemy2" && destroyTime == 3.0f || collision.gameObject.tag == "Boss" && destroyTime == 3.0f)
         {
             destroy();
         }
 
-        //Grass Shield
+        //Grass Shield, only affective to normal enemy
         if (collision.gameObject.tag == "Enemy" && destroyTime == 1.0f || collision.gameObject.tag == "Enemy2" && destroyTime == 1.0f)
         {
             gameObject.SetActive(true);

@@ -44,7 +44,7 @@ public class arrowControl : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             destroy();
-            soulControl.deduct(5);
+            soulControl.deduct(3);
         }
 
         if (other.CompareTag("Grass"))

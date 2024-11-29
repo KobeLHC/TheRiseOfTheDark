@@ -14,8 +14,10 @@ public class EnemyController : MonoBehaviour
     //Taking Fire Damage
     public int enemyHealth = 5;
     [SerializeField] private spellControl fire;
+
     //Taking Water Damage
     [SerializeField] private spellControl water;
+
     //Taking Grass Damage
     [SerializeField] private spellControl grass;
 
@@ -131,7 +133,7 @@ public class EnemyController : MonoBehaviour
     public void takePlayerDamage(int dmg)
     {
         enemyHealth -= dmg;
-        Debug.Log("Enemy taking " + dmg);
+        //Debug.Log("Enemy taking " + dmg);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -175,17 +177,26 @@ public class EnemyController : MonoBehaviour
         {
             //takePlayerDamage((grass.damage + spellControl.getUp()));
 
-            if (enemyHealth <= 0)
+            /*if (enemyHealth <= 0)
             {
                 //test
                 soulControl.add(10);
                 playerXP.addXP(1);
                 Destroy(gameObject);
+            }*/
+
+            if (gameObject.CompareTag("Boss"))
+            {
+                Collider2D enemyCollider = collision.collider;
+                Collider2D thisCollider = GetComponent<Collider2D>();
+
+                // Ignore collision between this object and the enemy
+                Physics2D.IgnoreCollision(thisCollider, enemyCollider);
             }
         }
 
         //Short Range Attack Player
-        if (collision.gameObject.CompareTag("Player") && gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Player") && gameObject.tag == "Enemy" || collision.gameObject.CompareTag("Player") && gameObject.tag == "Boss")
         {
             anim.SetTrigger("attack");
         }
@@ -195,15 +206,25 @@ public class EnemyController : MonoBehaviour
     //Contiune Short Range Attack Player
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Player") && gameObject.tag == "Enemy" || collision.gameObject.CompareTag("Player") && gameObject.tag == "Boss")
         {
             anim.SetTrigger("attack");
         }
     }
 
-    private void animDamage()
+    private void animForkDamage()
     {
-        soulControl.deduct(5);
+        soulControl.deduct(3);
+    }
+
+    private void animKnightDamage()
+    {
+        soulControl.deduct(5);  
+    }
+
+    private void animBossDamage()
+    {
+        soulControl.deduct(10);
     }
 
     private void shootArrow()

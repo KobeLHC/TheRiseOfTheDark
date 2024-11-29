@@ -57,4 +57,9 @@ public class UIFill : MonoBehaviour
             return false;
         }
     }
+
+    public float fullAmount()
+    {
+        return fill.fillAmount;
+    }
 }
