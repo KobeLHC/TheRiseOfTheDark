@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Wall
   - Fire
+  - Water
+  - Grass
+  - Enemy2
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -16,11 +20,11 @@ TagManager:
   - UI
   - Player
   - Fire
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Water
+  - Grass
+  - Arrow
+  - Enemy
+  - Enemy2
   - 
   - 
   - 

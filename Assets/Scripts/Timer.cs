@@ -17,11 +17,13 @@ public class Timer : MonoBehaviour
     public Image moon;
     public Image boss;
 
+    private bool redMoonTimerEnd;
+
     void Start()
     {
         moon.enabled = true;
         boss.enabled = false;
-        //checkSoul = GetComponent<UIFill>();
+        redMoonTimerEnd = false;
     }
 
     void Update()
@@ -42,10 +44,13 @@ public class Timer : MonoBehaviour
             {
                 remainingTime -= Time.deltaTime;
             }
+
             else if(remainingTime <= 0)
             {
                 remainingTime = 0;
+                redMoonTimerEnd = true;
                 fullSoul = checkSoul.isFull();
+                //Debug.Log("Timer soul check is " + fullSoul);
                 StartCoroutine(bossFightOn());
             }
         }
@@ -82,8 +87,21 @@ public class Timer : MonoBehaviour
         Application.Quit();
     }
 
+    //Check if player fufill the power up requirement before red moon ends
     public bool getFullSoul()
     {
+        //Debug.Log("getting fullSoul is " + fullSoul);
         return fullSoul;
+    }
+
+    //Get red moon timer end bool for trigger boss spawn
+    public bool getRedMoonTimerEnd()
+    { 
+            return redMoonTimerEnd;
+    }
+
+    public void setFullSoul(bool value)
+    {
+        fullSoul = value;
     }
 }

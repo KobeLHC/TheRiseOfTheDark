@@ -15,31 +15,58 @@ public class spellControl : MonoBehaviour
 
     public int damage = 1;
     static public int up;
+    static private int showDmg = 2;
 
-    public Timer soulCheck;
+    private Timer soulCheck;
+
+    public float destroyTime = 1.0f;
 
     void Start()
     {
         transform.Translate(Vector3.right * baseOffset);
+         rb = GetComponent<Rigidbody2D>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        rb = GetComponent<Rigidbody2D>();
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 direction = mousePos - transform.position;
         Vector3 rotation = transform.position - mousePos;
 
         rb.velocity = new Vector2(direction.x, direction.y).normalized * moveSpeed;
-        float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, rot);
+
+        //float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+       //transform.rotation = Quaternion.Euler(0, 0, rot);
+       if(direction.z > 0)
+        {
+            rb.rotation = 180;
+        }
+        else
+        {
+            rb.rotation = 0;
+        }
 
         //Destroy bullet after 4 sec
-        InvokeRepeating("destroy", 5f, 4f);
+        InvokeRepeating("destroy", destroyTime, destroyTime);
+
+
+        if (soulCheck == null)
+        {
+            GameObject soulObject = GameObject.Find("Canvas");
+            if (soulObject != null)
+            {
+                soulCheck = soulObject.GetComponent<Timer>();
+            }
+        }
     }
     private void Update()
     {
         if(soulCheck.getFullSoul() == true)
         {
-            up += 10;
+            up = 10;
+            soulCheck.setFullSoul(false);
+        }
+        else
+        {
+            Debug.Log("soulCheck is false");
         }
         
     }
@@ -48,25 +75,32 @@ public class spellControl : MonoBehaviour
     public static void damageAdd(int dmg)
     {
         up += dmg;
-        Debug.Log("New up is " + up);
+        int value = up + showDmg;
+        Debug.Log(" New Damage: " + value);
     }
 
     public static int getUp()
     {
         int powerUpValue = up;
-        Debug.Log("Getting up value is " +  powerUpValue);
+        //Debug.Log("Getting up value is " +  powerUpValue);
         return powerUpValue;
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.CompareTag("Wall"))
+        //Fire & Water atk
+        if (collision.gameObject.tag == "Enemy" && destroyTime == 3.0f || collision.gameObject.CompareTag("Wall") || collision.gameObject.tag == "Enemy2" && destroyTime == 3.0f)
         {
-            gameObject.SetActive(false);
+            destroy();
+        }
+
+        //Grass Shield
+        if (collision.gameObject.tag == "Enemy" && destroyTime == 1.0f || collision.gameObject.tag == "Enemy2" && destroyTime == 1.0f)
+        {
+            gameObject.SetActive(true);
         }
     }
-
 
     private void destroy()
     {

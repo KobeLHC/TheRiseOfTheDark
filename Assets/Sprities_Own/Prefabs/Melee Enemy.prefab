@@ -141,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -152,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.1}
+  m_Size: {x: 1, y: 1.1}
   m_EdgeRadius: 0
 --- !u!50 &3530901219467975301
 Rigidbody2D:
@@ -193,6 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93071ff27d1534f13bcf0f416372fb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movevSpeed: 2
+  moveSpeed: 2
   enemyHealth: 10
   fire: {fileID: 3368770725205218519, guid: a2eb422b82c5d0a48947a522814a16fd, type: 3}
+  water: {fileID: 4996605435215763410, guid: 65edc91cc99797c46b8d33dd0a828042, type: 3}
+  grass: {fileID: 4309141071785344041, guid: e2e985c211b09cc49b08c670828c303c, type: 3}
+  arrow: {fileID: 0}
+  arrowPos: {fileID: 0}
