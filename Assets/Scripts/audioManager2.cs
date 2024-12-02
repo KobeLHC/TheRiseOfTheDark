@@ -18,6 +18,7 @@ public class audioManager2 : MonoBehaviour
     void Start()
     {
         musicSource.clip = soft;
+        musicSource.loop = true;
         musicSource.Play();
     }
 
@@ -35,6 +36,7 @@ public class audioManager2 : MonoBehaviour
     {
         musicSource.Stop();
         musicSource.clip = clip;
+        musicSource.loop = true;
         musicSource.Play();
     }
 }

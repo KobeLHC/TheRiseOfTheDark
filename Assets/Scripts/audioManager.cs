@@ -33,6 +33,7 @@ public class audioManager : MonoBehaviour
     void Start()
     {
         musicSource.clip = background;
+        musicSource.loop = true;
         musicSource.Play();
     }
 
@@ -50,6 +51,7 @@ public class audioManager : MonoBehaviour
     {
         musicSource.Stop();
         musicSource.clip = clip;
+        musicSource.loop = true;
         musicSource.Play();
     }
 }
