@@ -43,8 +43,12 @@ public class playerXP : MonoBehaviour
 
     public void addXP(int xp)
     {
+        if (menuUp.sentFireLv() == 5 && menuUp.sentWaterLv() == 5 && menuUp.sentGrassCoolDown() == 5)
+        {
 
-        if (menuUp.sentFireLv() != 5 && menuUp.sentWaterLv() != 5 && menuUp.sentGrassCoolDown() != 5)
+        }
+
+        else
         {
             XPBar.value += xp;
 
@@ -57,7 +61,6 @@ public class playerXP : MonoBehaviour
                 }
             }
         }
-
     }
 
     public bool getShowOnce()

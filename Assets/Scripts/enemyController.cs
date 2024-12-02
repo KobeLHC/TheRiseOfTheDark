@@ -165,8 +165,8 @@ public class EnemyController : MonoBehaviour
             if (enemyHealth <= 0)
             {
                 audioManager.playSFX(audioManager.eDeath);
-                soulControl.add(2);
-                playerXP.addXP(3);
+                soulControl.add(3);
+                playerXP.addXP(2);
                 Destroy(gameObject);
             }
         }
@@ -186,8 +186,8 @@ public class EnemyController : MonoBehaviour
             if(enemyHealth <= 0)
             {
                 audioManager.playSFX(audioManager.eDeath);
-                soulControl.add(2);
-                playerXP.addXP(3);
+                soulControl.add(3);
+                playerXP.addXP(2);
                 Destroy(gameObject);
             }
         }

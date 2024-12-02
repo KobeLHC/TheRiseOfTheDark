@@ -22223,7 +22223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576713092298387030, guid: 7bf85339a12d89a4081f009526a8336d, type: 3}
       propertyPath: m_MaxValue
-      value: 10
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 6632160536048599248, guid: 7bf85339a12d89a4081f009526a8336d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -22532,7 +22532,7 @@ PrefabInstance:
       objectReference: {fileID: 1980067191}
     - target: {fileID: 1156189536019420924, guid: d826590a50c90439a91dad04da4230f2, type: 3}
       propertyPath: remainingTime
-      value: 10
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 2337828476181939197, guid: d826590a50c90439a91dad04da4230f2, type: 3}
       propertyPath: m_Name
