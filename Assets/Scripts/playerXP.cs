@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class playerXP : MonoBehaviour
 {
     public Slider XPBar;
     [SerializeField] private levelUpMenu menuUp;
+    private bool showOnce;
 
     void Start()
     {
@@ -25,26 +27,41 @@ public class playerXP : MonoBehaviour
             }
             
         }
+        showOnce = false;
         
     }
 
     void Update()
     {
-        
+        if (menuUp.sentFireLv() == 5 && menuUp.sentWaterLv() == 5 && menuUp.sentGrassCoolDown() == 5 && showOnce == false)
+        {
+            showOnce = true;
+            menuUp.pauseGame();
+            XPBar.value += XPBar.maxValue;
+        }
     }
 
     public void addXP(int xp)
     {
-        XPBar.value += xp;
 
-        if(XPBar.value >= XPBar.maxValue)
+        if (menuUp.sentFireLv() != 5 && menuUp.sentWaterLv() != 5 && menuUp.sentGrassCoolDown() != 5)
         {
-            XPBar.value = 0;
-            
-            if(menuUp != null)
-        {
-                menuUp.pauseGame();
+            XPBar.value += xp;
+
+            if (XPBar.value >= XPBar.maxValue)
+            {
+                XPBar.value = 0;
+                if (menuUp != null)
+                {
+                    menuUp.pauseGame();
+                }
             }
         }
+
+    }
+
+    public bool getShowOnce()
+    {
+        return showOnce;
     }
 }

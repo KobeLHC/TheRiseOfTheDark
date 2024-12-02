@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 57e5390c89c63d043b54ea186d77641d
+guid: e194f31e1fb948848ba4996fc064b646
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 700
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,13 +123,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wond_0
+      name: Extra buttons_0
       rect:
         serializedVersion: 2
-        x: 400
-        y: 320
-        width: 280
-        height: 440
+        x: 121
+        y: 597
+        width: 296
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02a1b525c0a2d9f4286069887756b9da
+      internalID: -915324847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Extra buttons_1
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 598
+        width: 299
+        height: 118
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +158,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 746ec1a25cbedf140880ecb45a804bd5
-      internalID: 1170549419
+      spriteID: ec3e68c4dc27c194688d4d40da79b834
+      internalID: 489825032
       vertices: []
       indices: 
       edges: []
@@ -154,7 +175,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wond_0: 1170549419
+      Extra buttons_0: -915324847
+      Extra buttons_1: 489825032
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

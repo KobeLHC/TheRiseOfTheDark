@@ -8,12 +8,14 @@ public class shootGrass : MonoBehaviour
     private Camera mainCam;
     private Vector3 mousePos;
     public float timeBetweenFiring;
-    private float timer;
+    //private float timer;
     public Transform playerPivot;
 
     public GameObject grass;
     public levelUpMenu unlockKey;
     private bool grassOn;
+    private float grassTimer;
+    public int grassRemain;
 
     void Start()
     {
@@ -25,6 +27,8 @@ public class shootGrass : MonoBehaviour
 
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         grassOn = false;
+
+        grassRemain = 3;
 
     }
 
@@ -45,35 +49,48 @@ public class shootGrass : MonoBehaviour
             playerPivot.localScale = new Vector3(-Mathf.Abs(playerPivot.localScale.x), -Mathf.Abs(playerPivot.localScale.y), playerPivot.localScale.z);
         }
 
-        timer += Time.deltaTime;
+        //Control grass refill
+        if (grassRemain < 3)
+        {
+            grassTimer += Time.deltaTime;
+        }
 
-       
+
+
+        if (grassTimer >= (10 - (unlockKey.sentGrassCoolDown())) && grassRemain < 3)
+        {
+            grassRemain++;
+            grassTimer = 0;
+        }
+
+
 
         if (unlockKey.sentUnlockG() == true)
         {
             grassOn = true;
         }
 
-        /*if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            grassOn = false;
-        }*/
 
-        if (/*timer >= timeBetweenFiring*/ Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             attack();
-            //timer = 0;
         }
 
     }
 
-    void attack()
+    public void attack()
     {
         //grass attack
-         if(grassOn == true)
+        if (grassOn == true && grassRemain > 0)
         {
             Instantiate(grass, playerPivot.position, playerPivot.rotation);
+            grassRemain--;
         }
 
     }
-}
+
+    public int getGrassRemain()
+    {
+        return grassRemain;
+    }
+} 

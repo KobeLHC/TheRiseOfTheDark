@@ -8,6 +8,7 @@ public class enemySpawn : MonoBehaviour
     public GameObject[] enemies;
     public GameObject player;
 
+    audioManager audioManager;
 
     //int randomSpawnPoint;
     int randomEnemy;
@@ -16,10 +17,14 @@ public class enemySpawn : MonoBehaviour
 
     //Spawn Boss
     public Timer soulCheck;
-    private bool bossSpawned;
     public GameObject boss;
 
     [SerializeField] private float spawnRate = 3f;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
+    }
 
     void Start()
     {
@@ -32,19 +37,13 @@ public class enemySpawn : MonoBehaviour
             }
         }*/
 
-        bossSpawned = false;
-
 
         StartCoroutine(spawnEnemy());
     }
 
     void Update()
     {
-      if (soulCheck.getRedMoonTimerEnd()  == true && bossSpawned == false)
-        {
-            spawn();
-            bossSpawned = true;
-        }
+       
     }
 
     private IEnumerator spawnEnemy()
@@ -58,20 +57,23 @@ public class enemySpawn : MonoBehaviour
             randomEnemy = Random.Range(0, 3);
             spawnPoints[0].position = randomSpawn;
 
-            if (spawnPoints[0].position.y <= 13 && spawnPoints[0].position.y >= -13 && spawnPoints[0].position.x >= -23 && spawnPoints[0].position.x <= 23)
+            if (spawnPoints[0].position.y <= 13 && spawnPoints[0].position.y >= -13 && spawnPoints[0].position.x >= -20 && spawnPoints[0].position.x <= 20)
             {
                 Instantiate(enemies[randomEnemy], spawnPoints[0].position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(enemies[randomEnemy], spawnPoints[2].position, Quaternion.identity);
             }
         }
     }
 
-    private void spawn()
+    public void spawn()
     {
-        offset = Random.Range(-10, 20);
-        randomSpawn = new Vector3((player.transform.position.x + offset), (player.transform.position.y + offset), 0);
-        if (spawnPoints[0].position.y <= 13 && spawnPoints[0].position.y >= -13 && spawnPoints[0].position.x >= -23 && spawnPoints[0].position.x <= 23)
-        {
-            Instantiate(boss, spawnPoints[0].position, Quaternion.identity);
-        }
+        audioManager.playMusic(audioManager.backgroundBoss);
+        Instantiate(boss, spawnPoints[1].position, Quaternion.identity);
+       
     }
+
+    
 }

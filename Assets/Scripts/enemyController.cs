@@ -26,17 +26,24 @@ public class EnemyController : MonoBehaviour
 
     //Control Soul Bar
     private UIFill soulControl;
-
+ 
     //XP Bar control
     private playerXP playerXP;
+
+    //Boss HP bar control
+    public bossHP hp;
 
     //Arrow Enemy
     public GameObject arrow;
     public Transform arrowPos;
     private float timer;
 
+    //Audio
+    audioManager audioManager;
+
     private void Awake()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
         anim = GetComponent<Animator>();
     }
 
@@ -94,9 +101,9 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         moveEnemy();
-        timer += Time.deltaTime;
 
-        if(timer > 2 && gameObject.tag == "Enemy2")
+        timer += Time.deltaTime;
+        if(timer > 1 && gameObject.tag == "Enemy2")
         {
             timer = 0;
             shootArrow();
@@ -132,8 +139,20 @@ public class EnemyController : MonoBehaviour
 
     public void takePlayerDamage(int dmg)
     {
-        enemyHealth -= dmg;
-        //Debug.Log("Enemy taking " + dmg);
+        if(gameObject.tag == "Enemy" || gameObject.tag == "Enemy2")
+        {
+            enemyHealth -= dmg;
+            Debug.Log("Enemy taking " + dmg);
+        }
+
+        else if(gameObject.tag == "Boss")
+        {
+            hp.minusHP(dmg);
+            enemyHealth -= dmg;
+            Debug.Log("Enemy taking " + dmg);
+
+        }
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -141,13 +160,13 @@ public class EnemyController : MonoBehaviour
         //Taking Fire Damage
         if(collision.gameObject.tag == "Fire")
         {
-            takePlayerDamage((fire.damage + spellControl.getUp()));
-
+            takePlayerDamage((fire.damage + spellControl.getUpFire()));
+            audioManager.playSFX(audioManager.fireHit);
             if (enemyHealth <= 0)
             {
-                //test
-                soulControl.add(10);
-                playerXP.addXP(1);
+                audioManager.playSFX(audioManager.eDeath);
+                soulControl.add(2);
+                playerXP.addXP(3);
                 Destroy(gameObject);
             }
         }
@@ -155,19 +174,20 @@ public class EnemyController : MonoBehaviour
         //Taking Water Damage
         if (collision.gameObject.tag == "Water")
         {
-            takePlayerDamage((water.damage + spellControl.getUp()));
+            takePlayerDamage((water.damage + spellControl.getUpWater()));
+            audioManager.playSFX(audioManager.waterHit);
             moveSpeed -= 1;
 
-            if(moveSpeed == 0)
+            if(moveSpeed <= 2)
             {
-                moveSpeed = 1;
+                moveSpeed = 2;
             }
 
             if(enemyHealth <= 0)
             {
-                //test
-                soulControl.add(10);
-                playerXP.addXP(1);
+                audioManager.playSFX(audioManager.eDeath);
+                soulControl.add(2);
+                playerXP.addXP(3);
                 Destroy(gameObject);
             }
         }
@@ -175,22 +195,12 @@ public class EnemyController : MonoBehaviour
         //Taking Grass Block
         if (collision.gameObject.tag == "Grass")
         {
-            //takePlayerDamage((grass.damage + spellControl.getUp()));
-
-            /*if (enemyHealth <= 0)
-            {
-                //test
-                soulControl.add(10);
-                playerXP.addXP(1);
-                Destroy(gameObject);
-            }*/
+            audioManager.playSFX(audioManager.grassHit);
 
             if (gameObject.CompareTag("Boss"))
             {
                 Collider2D enemyCollider = collision.collider;
                 Collider2D thisCollider = GetComponent<Collider2D>();
-
-                // Ignore collision between this object and the enemy
                 Physics2D.IgnoreCollision(thisCollider, enemyCollider);
             }
         }
@@ -214,16 +224,19 @@ public class EnemyController : MonoBehaviour
 
     private void animForkDamage()
     {
-        soulControl.deduct(3);
+        audioManager.playSFX(audioManager.eShortAttack);
+        soulControl.deduct(2);
     }
 
     private void animKnightDamage()
     {
-        soulControl.deduct(5);  
+        audioManager.playSFX(audioManager.eShortAttack);
+        soulControl.deduct(4);  
     }
 
     private void animBossDamage()
     {
+        audioManager.playSFX(audioManager.bossAttack);
         soulControl.deduct(10);
     }
 

@@ -11,6 +11,14 @@ public class arrowControl : MonoBehaviour
     //Control Soul Bar
     private UIFill soulControl;
 
+    //Audio
+    audioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,12 +51,14 @@ public class arrowControl : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            audioManager.playSFX(audioManager.eLongAttackHit);
             destroy();
-            soulControl.deduct(3);
+            soulControl.deduct(6);
         }
 
         if (other.CompareTag("Grass"))
         {
+            audioManager.playSFX(audioManager.eLongAttackHit);
             destroy();
         }
     }

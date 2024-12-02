@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 6599965379419597567}
   - component: {fileID: 215289392816932553}
   - component: {fileID: 251374796084210441}
+  - component: {fileID: -3735116762999440142}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -372,6 +373,20 @@ MonoBehaviour:
   moveSpeed: 7
   rb: {fileID: 9201945018004242776}
   movement: {x: 0, y: 0}
+--- !u!114 &-3735116762999440142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5525061923882680147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: affbc3b127bfc8941a2490d4856d9fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSprite: {fileID: -1385277553, guid: d0c6e923b1b2e98459762509b6bf66f6, type: 3}
+  soulCheck: {fileID: 1156189536019420924, guid: d826590a50c90439a91dad04da4230f2, type: 3}
 --- !u!1 &8521711614468128372
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 41860095718475229}
   - component: {fileID: 7539070909233211570}
+  - component: {fileID: 1901266354398172549}
   m_Layer: 6
   m_Name: Bullet
   m_TagString: Untagged
@@ -456,6 +472,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1901266354398172549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521711614468128372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: affbc3b127bfc8941a2490d4856d9fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newSprite: {fileID: -2121099281, guid: d0c6e923b1b2e98459762509b6bf66f6, type: 3}
+  soulCheck: {fileID: 0}
 --- !u!1 &8568456046998237306
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +553,7 @@ MonoBehaviour:
   playerPivot: {fileID: 41860095718475229}
   grass: {fileID: 3905117009056308563, guid: e2e985c211b09cc49b08c670828c303c, type: 3}
   unlockKey: {fileID: 0}
+  grassRemain: 0
 --- !u!1 &8577663301534699715
 GameObject:
   m_ObjectHideFlags: 0

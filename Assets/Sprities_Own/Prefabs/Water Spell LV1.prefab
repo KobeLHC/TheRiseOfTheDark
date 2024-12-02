@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  baseOffset: 0
+  baseOffset: 0.7
   damage: 1
   soulCheck: {fileID: 1156189536019420924, guid: d826590a50c90439a91dad04da4230f2, type: 3}
   destroyTime: 3

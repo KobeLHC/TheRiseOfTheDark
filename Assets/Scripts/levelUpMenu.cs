@@ -10,6 +10,8 @@ public class levelUpMenu : MonoBehaviour
     public GameObject levelupMenu;
     public static bool waitLevelUp;
 
+    public GameObject pauseMenu;
+
     //Water control
     private bool unlockedW;
     public GameObject waterScreen;
@@ -29,17 +31,29 @@ public class levelUpMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI grassLvText;
 
     public TextMeshProUGUI warningText;
-    
-   
+
+    public Timer maxLevel;
+    public bool updateOnce;
+    public playerXP showOnce;
+
+    //Audio
+    audioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
+    }
 
     void Start()
     {
         levelupMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         waterScreen.SetActive(true);
         grassScreen.SetActive(true);
         unlockedF = true;
         unlockedW = false;
         unlockedG = false;
+        updateOnce = false;
 
         if (fire == null)
         {
@@ -59,7 +73,20 @@ public class levelUpMenu : MonoBehaviour
 
     void Update()
     {
+        if (maxLevel.getFullSoul() == true && updateOnce == false)
+        {
+            fireLv = 5;
+            waterLv = 5;
+            grassLv = 5;
+            updateOnce = true;
+        }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            audioManager.playSFX(audioManager.pause);
+            pauseMenu.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 
 
@@ -72,32 +99,60 @@ public class levelUpMenu : MonoBehaviour
         warningText.gameObject.SetActive(false);
         Time.timeScale = 0f;
         waitLevelUp = true;
+
+        if(showOnce.getShowOnce() == true)
+        {
+            unlockWater();
+            unlockGrass();
+            warningText.text = string.Format("All Spell Max Level! Press Continue");
+            warningText.gameObject.SetActive(true);
+
+            //Add base dmg after final big upgrade
+            spellControl.allMax();
+        }
     }
 
     public void resumeGame()
     {
         if (waitLevelUp == false)
         {
+            audioManager.playSFX(audioManager.buttons);
             levelupMenu.SetActive(false);
             Time.timeScale = 1f;
         }
+
         else
         {
+           audioManager.playSFX(audioManager.buttons);
            warningText.text = string.Format("Upgrade Or Unlock Spell");
            warningText.gameObject.SetActive(true);
         }
     }
 
+    public void backMain()
+    {
+        audioManager.playSFX(audioManager.buttons);
+        SceneManager.LoadSceneAsync("Main Menu");
+    }
+
+    public void pauseResume()
+    {
+        audioManager.playSFX(audioManager.pause);
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
     public void fireLevelUp()
     {
-        if (waitLevelUp == true)
+        if (waitLevelUp == true && showOnce.getShowOnce() != true)
         {
             warningText.gameObject.SetActive(true);
 
             //Fire text
             if(fireLv != 5 && unlockedF == true)
             {
-                spellControl.damageAdd(2);
+                audioManager.playSFX(audioManager.upgrade);
+                spellControl.damageAddFire(2);
                 fireLv++;
                 fireLvText.text = string.Format("LEVEL: " + fireLv);
                 warningText.text = string.Format("Upgraded Spell! Press Continue ");
@@ -106,6 +161,7 @@ public class levelUpMenu : MonoBehaviour
 
             else
             {
+                audioManager.playSFX(audioManager.buttons);
                 warningText.text = string.Format("Spell Max Level");
             }
         }
@@ -113,7 +169,7 @@ public class levelUpMenu : MonoBehaviour
 
     public void waterLevelUp()
     {
-        if (waitLevelUp == true)
+        if (waitLevelUp == true && showOnce.getShowOnce() != true)
         {
             //Need to fix in all spells
             warningText.gameObject.SetActive(true);
@@ -121,7 +177,8 @@ public class levelUpMenu : MonoBehaviour
             //Water text
             if (waterLv != 5 && unlockedW == true)
             {
-                spellControl.damageAdd(1);
+                audioManager.playSFX(audioManager.upgrade);
+                spellControl.damageAddWater(1);
                 waterLv++;
                 waterLvText.text = string.Format("LEVEL: " + waterLv);
                 warningText.text = string.Format("Upgraded Spell! Press Continue");
@@ -130,11 +187,13 @@ public class levelUpMenu : MonoBehaviour
 
             else if(unlockedW == false)
             {
+                audioManager.playSFX(audioManager.buttons);
                 warningText.text = string.Format("Spell Not Yet Unlock");
             }
 
             else
             {
+                audioManager.playSFX(audioManager.buttons);
                 warningText.text = string.Format("Spell Max Level");
             }
         }
@@ -142,15 +201,15 @@ public class levelUpMenu : MonoBehaviour
 
     public void grassLevelUp()
     {
-        if (waitLevelUp == true)
+        if (waitLevelUp == true && showOnce.getShowOnce() != true)
         {
-            //Need to fix in all spells
             warningText.gameObject.SetActive(true);
 
-            //Water text
+            //grass text
             if (grassLv != 5 && unlockedG == true)
             {
-                spellControl.damageAdd(1);
+                audioManager.playSFX(audioManager.upgrade);
+                //spellControl.damageAdd(1);
                 grassLv++;
                 grassLvText.text = string.Format("LEVEL: " + grassLv);
                 warningText.text = string.Format("Upgraded Spell! Press Continue");
@@ -159,41 +218,58 @@ public class levelUpMenu : MonoBehaviour
 
             else if (unlockedG == false)
             {
+                audioManager.playSFX(audioManager.buttons);
                 warningText.text = string.Format("Spell Not Yet Unlock");
             }
 
             else
             {
+                audioManager.playSFX(audioManager.buttons);
                 warningText.text = string.Format("Spell Max Level");
 
             }
         }
     }
 
-
     public void unlockWater()
     {
-        if (waterScreen.activeSelf == true && waitLevelUp == true)
+        if (waterScreen.activeSelf == true && waitLevelUp == true && showOnce.getShowOnce() != true)
         {
-            waterScreen.SetActive(false) ;
+            audioManager.playSFX(audioManager.upgrade);
+            waterScreen.SetActive(false);
             warningText.text = string.Format("Unlocked New Spell! Press Continue ");
             warningText.gameObject.SetActive(true);
             waitLevelUp = false;
             unlockedW = true;
 
-        }     
+        }    
+        
+        else if(showOnce.getShowOnce() == true)
+        {
+            waterScreen.SetActive(false);
+            waitLevelUp = false;
+            unlockedW = true;
+        }
     }
 
     public void unlockGrass()
     {
-        if (grassScreen.activeSelf == true && waitLevelUp == true)
+        if (grassScreen.activeSelf == true && waitLevelUp == true && showOnce.getShowOnce() != true)
         {
+            audioManager.playSFX(audioManager.upgrade);
             grassScreen.SetActive(false);
             warningText.text = string.Format("Unlocked New Spell! Press Continue ");
             warningText.gameObject.SetActive(true);
             waitLevelUp = false;
             unlockedG = true;
 
+        }
+
+        else if (showOnce.getShowOnce() == true)
+        {
+            grassScreen.SetActive(false);
+            waitLevelUp = false;
+            unlockedG = true;
         }
     }
 
@@ -210,5 +286,20 @@ public class levelUpMenu : MonoBehaviour
     public bool sentUnlockG()
     {
         return unlockedG;
+    }
+
+    public int sentGrassCoolDown()
+    {
+        return grassLv;
+    }
+
+    public int sentFireLv()
+    {
+        return fireLv;
+    }
+
+    public int sentWaterLv()
+    {
+        return waterLv;
     }
 }

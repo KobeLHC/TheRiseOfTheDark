@@ -12,6 +12,8 @@ TagManager:
   - Enemy2
   - Arrow
   - Boss
+  - Audio
+  - Audio2
   layers:
   - Default
   - TransparentFX

@@ -22,6 +22,13 @@ public class shooting : MonoBehaviour
     private bool fireOn;
     private bool waterOn;
     //private bool grassOn;
+    
+    //Audio
+    audioManager audioManager;
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<audioManager>();
+    }
 
     void Start()
     {
@@ -60,14 +67,16 @@ public class shooting : MonoBehaviour
 
         timer += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && unlockKey.sentUnlockF() == true)
-        { 
+        if (Input.GetMouseButtonDown(0) && unlockKey.sentUnlockF() == true)
+        {
+            audioManager.playSFX(audioManager.switchSpell);
             fireOn = true;
             waterOn = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && unlockKey.sentUnlockW() == true)
+        if (Input.GetMouseButtonDown(1) && unlockKey.sentUnlockW() == true)
         {
+            audioManager.playSFX(audioManager.switchSpell);
             fireOn = false;
             waterOn = true;
         }
@@ -95,6 +104,7 @@ public class shooting : MonoBehaviour
         //fire attack
         if(fireOn == true && waterOn == false /*&& grassOn == false*/)
         {
+            audioManager.playSFX(audioManager.pAttack);
             Instantiate(bullet, bulletTransform.transform.position, bulletTransform.transform.rotation);
 
         }
@@ -102,6 +112,7 @@ public class shooting : MonoBehaviour
         //water attack
         else if(fireOn == false && waterOn == true /*&& grassOn == false*/)
         {
+            audioManager.playSFX(audioManager.pAttack);
             Instantiate(water, bulletTransform.transform.position, bulletTransform.transform.rotation);
         }
 

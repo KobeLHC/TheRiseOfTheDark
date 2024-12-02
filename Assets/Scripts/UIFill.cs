@@ -7,8 +7,10 @@ public class UIFill : MonoBehaviour
 {
     public int maxValue;
     public Image fill;
+    private float timer;
 
     private int currentValue;
+    public float stop;
  
     void Start()
     {
@@ -19,12 +21,15 @@ public class UIFill : MonoBehaviour
   
     void Update()
     {
-       
+        timer += Time.deltaTime;
     }
 
     public void add(int i)
     {
-        currentValue += i;
+        if(timer <= stop)
+        {
+           currentValue += i;
+        }
 
         if(currentValue >= maxValue)
         {
